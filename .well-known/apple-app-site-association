@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "63A7U5T75Y.com.earthturd.rootsmobile",
+          "63A7U5T75Y.com.earthturd.rootsmobile.dev"
+        ],
+        "components": [
+          { "/": "/claim*" }
+        ]
+      }
+    ]
+  }
+}
