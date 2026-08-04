@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Roots</title>
+  <meta property="og:title" content="Roots">
+  <meta property="og:description" content="Family history and memory, shared together.">
+  <style>
+    body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;
+         background:#fdfcf8;font-family:Georgia,serif;color:#1c1815;text-align:center;padding:24px}
+    a{color:#5a1a14;font-size:17px}
+    p{color:#544c42;font-size:15px;line-height:1.6}
+  </style>
+</head>
+<body>
+  <div>
+    <p style="font-size:22px;color:#5a1a14;margin-bottom:8px">Roots</p>
+    <p>Opening the app…</p>
+    <p id="fallback" style="display:none"><a id="deeplink">Tap here if it doesn't open automatically</a></p>
+  </div>
+  <script>
+    var params = new URLSearchParams(window.location.search);
+    var type = params.get('type');
+    var id = params.get('id');
+    var personId = params.get('personId');
+    if (type && id) {
+      var link = 'rootsmobile://share?type=' + encodeURIComponent(type) + '&id=' + encodeURIComponent(id);
+      if (personId) link += '&personId=' + encodeURIComponent(personId);
+      document.getElementById('deeplink').href = link;
+      document.getElementById('fallback').style.display = 'block';
+      window.location.replace(link);
+    }
+  </script>
+</body>
+</html>
