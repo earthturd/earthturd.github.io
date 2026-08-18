@@ -9,6 +9,9 @@
          background:#fdfcf8;font-family:Georgia,serif;color:#1c1815;text-align:center;padding:24px}
     a{color:#5a1a14;font-size:17px}
     p{color:#544c42;font-size:15px;line-height:1.6}
+    #store{display:none;margin-top:28px}
+    #store a{display:inline-block;background:#5a1a14;color:#ffffff;text-decoration:none;
+              font-size:15px;padding:12px 28px;border-radius:4px}
   </style>
 </head>
 <body>
@@ -16,6 +19,10 @@
     <p style="font-size:22px;color:#5a1a14;margin-bottom:8px">Roots</p>
     <p>Opening the app…</p>
     <p id="fallback" style="display:none"><a id="deeplink">Tap here if it doesn't open automatically</a></p>
+    <div id="store">
+      <p>Don't have Roots yet?</p>
+      <a id="storeLink" href="https://apps.apple.com/app/id6788457893">Download on the App Store</a>
+    </div>
   </div>
   <script>
     var params = new URLSearchParams(window.location.search);
@@ -25,6 +32,21 @@
       document.getElementById('deeplink').href = link;
       document.getElementById('fallback').style.display = 'block';
       window.location.replace(link);
+    }
+
+    // If the app isn't installed, the deep link above silently fails and the
+    // user is left staring at "Opening the app…". Show a store link after a
+    // short delay as a fallback — if the app DID open, the page is typically
+    // backgrounded/closed before this fires, so this only shows for the
+    // no-app-installed case in practice.
+    // Android omitted: Play Store listing isn't public yet (still in closed
+    // testing as of 2026-08 — see roots-mobile CLAUDE.md go-live checklist).
+    // Add an Android branch here once that listing goes live.
+    var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+    if (isIOS) {
+      setTimeout(function () {
+        document.getElementById('store').style.display = 'block';
+      }, 1500);
     }
   </script>
 </body>
