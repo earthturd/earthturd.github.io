@@ -12,6 +12,7 @@
     #store{display:none;margin-top:28px}
     #store a{display:inline-block;background:#5a1a14;color:#ffffff;text-decoration:none;
               font-size:15px;padding:12px 28px;border-radius:4px}
+    #noapp{display:none;margin-top:28px}
   </style>
 </head>
 <body>
@@ -22,6 +23,10 @@
     <div id="store">
       <p>Don't have Roots yet?</p>
       <a id="storeLink" href="https://apps.apple.com/app/id6788457893">Download on the App Store</a>
+    </div>
+    <div id="noapp">
+      <p>Don't have Roots yet?</p>
+      <p>Roots is available now on iPhone. If you're on a computer, open this link on your phone instead — or ask whoever invited you for help getting set up.</p>
     </div>
   </div>
   <script>
@@ -35,19 +40,23 @@
     }
 
     // If the app isn't installed, the deep link above silently fails and the
-    // user is left staring at "Opening the app…". Show a store link after a
-    // short delay as a fallback — if the app DID open, the page is typically
-    // backgrounded/closed before this fires, so this only shows for the
-    // no-app-installed case in practice.
-    // Android omitted: Play Store listing isn't public yet (still in closed
-    // testing as of 2026-08 — see roots-mobile CLAUDE.md go-live checklist).
-    // Add an Android branch here once that listing goes live.
+    // user is left staring at "Opening the app…". Show a fallback after a
+    // short delay — if the app DID open, the page is typically backgrounded/
+    // closed before this fires, so this only shows for the no-app case in
+    // practice.
+    //
+    // iOS gets a direct App Store link. Everyone else (Android, desktop,
+    // unknown user agents) gets a generic message instead of nothing — a
+    // desktop/laptop browser previously hung on "Opening the app…" forever
+    // with zero feedback, which is what happened to a family member who
+    // opened the invite on a computer (2026-08-19). Android has no store
+    // link yet: Play Store listing isn't public (still in closed testing as
+    // of 2026-08 — see roots-mobile CLAUDE.md go-live checklist). Add an
+    // Android store link here once that listing goes live.
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-    if (isIOS) {
-      setTimeout(function () {
-        document.getElementById('store').style.display = 'block';
-      }, 1500);
-    }
+    setTimeout(function () {
+      document.getElementById(isIOS ? 'store' : 'noapp').style.display = 'block';
+    }, 1500);
   </script>
 </body>
 </html>
